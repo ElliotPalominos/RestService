@@ -7,19 +7,30 @@
 //
 
 import UIKit
+import RestKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ResponseProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let request = ValueRequest()
+        request.execute(delegate: self)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func onResponseSuccess(operation: RKObjectRequestOperation, object: Any) {
+        let value = object as! Value
+        
+        print(value.one!)
+        print(value.key!)
+    }
+    
+    func onResponseError(operation: RKObjectRequestOperation, error: Error) {
+        
+    }
 }
 
